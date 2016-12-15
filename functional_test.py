@@ -28,18 +28,30 @@ class NewVisitorTest(unittest.TestCase):
 			'Enter a to-do item'
 		)
 
-		#user enters 'buy peacock feathers as a todo item.
+
 		inputbox.send_keys('Buy peacock feathers')
 
 		#user hits enter.
 		inputbox.send_keys(Keys.ENTER)
+		
+		inputbox = self.browser.find_element_by_id('id_new_item')
+		#user enters 'buy peacock feathers as a todo item.
+		inputbox.send_keys('Buy more peacock feathers.')
+
+		#user hits enter.
+		inputbox.send_keys(Keys.ENTER)
+		
 
 		table = self.browser.find_element_by_id('id_list_table')
 		rows = table.find_elements_by_tag_name('tr')
-		self.assertTrue(
-			any(row.text == '1. Buy peacock feathers' for row in rows),
-			"New to-do item did not appear in the table"
-		)
+		self.assertIn('1: Buy peacock feathers',[row.text for row in rows])
+		self.assertIn('2: Buy more peacock feathers.',[row.text for row in rows])
+
+
+
+		table = self.browser.find_element_by_id('id_list_table')
+		rows = table.find_elements_by_tag_name('tr')
+		
 
 		#User wants to add another to-do item. 
 		self.fail('finish the test!')
