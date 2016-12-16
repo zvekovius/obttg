@@ -3,6 +3,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 import unittest
 
+
 class NewVisitorTest(unittest.TestCase):
 
 	def setUp(self):
@@ -62,6 +63,8 @@ class NewVisitorTest(unittest.TestCase):
 		self.fail('finish the test!')
 
 		#The page updates again, and now shows both items on her list.
+
+
 
 if __name__ == '__main__':
 	unittest.main(warnings='ignore')
