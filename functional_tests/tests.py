@@ -37,7 +37,10 @@ class NewVisitorTest(LiveServerTestCase):
 
 		inputbox.send_keys('Buy peacock feathers')
 		inputbox.send_keys(Keys.ENTER)
-		self.check_for_row_in_list_table('1: Buy peacock feathers')		
+
+		edith_list_url = self.browser.current_url
+		self.assertRegex(edith_list_url, '/lists/.+')
+		self.check_for_row_in_list_table('1: Buy peacock feathers')	
 
 		inputbox = self.browser.find_element_by_id('id_new_item')
 		#user enters 'buy peacock feathers as a todo item.
@@ -54,7 +57,28 @@ class NewVisitorTest(LiveServerTestCase):
 		rows = table.find_elements_by_tag_name('tr')
 		self.check_for_row_in_list_table('2: Buy more peacock feathers')	
 
-		#User wants to add another to-do item. 
+		#New user comes to site.
+		self.browser.quit()
+		#self.browser = webdriver.Firefox()
+		self.browser = browser = webdriver.Firefox(firefox_binary=FirefoxBinary(firefox_path='/home/zvekovius/Downloads/firefox/firefox'))
+		
+		self.browser.get(self.live_server_url)
+		page_text = self.browser.find_element_by_tag_name('body').text
+		self.assertNotIn('Buy peacock feathers', page_text)
+		self.assertNotIn('make a fly', page_text)
+
+		inputbox = self.browser.find_element_by_id('id_new_item')
+		inputbox.send_keys('Buy Milk')
+		inputbox.send_keys(Keys.ENTER)
+
+		francis_list_url = self.browser.current_url
+		self.assertRegex(francis_list_url, '/lists/.+')
+		self.assertNotEqual(francis_list_url, edith_list_url)
+
+		page_text = self.browser.find_element_by_tag_name('body').text
+		self.assertNotIn('Buy peacock feathers', page_text)
+		self.assertIn('Buy milk', page_text)
+ 
 		self.fail('finish the test!')
 
 
