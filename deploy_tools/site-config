@@ -3,7 +3,7 @@ server {
 	server_name SITENAME;
 
 	location /static {
-		alias /home/USERNAME/sites/SITENAME/static;
+		alias /home/webhost/sites/SITENAME/static;
 	}
 
 	location / {
