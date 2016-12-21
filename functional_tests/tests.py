@@ -100,7 +100,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
 		#self.browser = webdriver.Firefox()
 		self.browser = browser = webdriver.Firefox(firefox_binary=FirefoxBinary(firefox_path='/home/zvekovius/Downloads/firefox/firefox'))
 		
-		self.browser.get(self.live_server_url)
+		self.browser.get(self.server_url)
 		page_text = self.browser.find_element_by_tag_name('body').text
 		self.assertNotIn('Buy peacock feathers', page_text)
 		self.assertNotIn('make a fly', page_text)
