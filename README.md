@@ -42,10 +42,13 @@ Assume we have a non-root user at /home/username
 python3 manage.py tests lists
 
 # To run functional tests:
-python3 manage.py functional_tests --liveserver=serverurl.server.com
+python3 manage.py test functional_tests --liveserver=serverurl.server.com
 ~or~
-python3 manage.py functional_tests
+python3 manage.py test functional_tests
 ^ Use a local server instead of staing server. 
+
+python3 manage.py test functional_tests.test_list_item_validation
+^Run individual functional test file.
 
 #Deploying
 Under deploy_tools there is a fab file. Run
